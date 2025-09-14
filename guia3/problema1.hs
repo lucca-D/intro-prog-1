@@ -3,7 +3,7 @@ f 1  = 8
 f 4  = 131
 f 16 = 165
 main :: IO () --
-main = do
+main = do --
   print (f 1) --
   print (f 4) --
   print (f 16) --
