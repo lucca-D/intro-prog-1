@@ -1,0 +1,5 @@
+-- aca va el codigo que quiero probar, voy dandole :reload una vez cargado y listo lo corro
+-- correr pw con admin y luego
+-- ghci
+-- :load "C:\\Scripts\\scripts_facultad\\intro-prog-1\\guia3\\problemaActual.hs"
+-- en caso de cambios :reload
