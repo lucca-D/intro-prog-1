@@ -7,4 +7,4 @@ main = do
   print (f 1) 
   print (f 4) 
   print (f 16) 
-  print (f 1) 
+  print (f 1) --
