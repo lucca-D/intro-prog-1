@@ -1,5 +1,4 @@
-import Control.Concurrent (yield)
---Especificar e implementar las siguientes funciones, incluyendo su signatura.
+--2) Especificar e implementar las siguientes funciones, incluyendo su signatura.
 
 --a) absoluto: calcula el valor absoluto de un numero entero.
 -- problema absoluto(x:Z):Z {

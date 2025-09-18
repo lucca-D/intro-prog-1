@@ -40,6 +40,10 @@ esMultiploDe :: Integer -> Integer -> Bool
 esMultiploDe x y    | (x>0) && (y>0) && (mod x y == 0) = True
                     | otherwise = False
 
+estanRelacionados :: Integer -> Integer -> Bool
+estanRelacionados a b   | (a /= 0) && (b /= 0) && (mod a b == 0) = True
+                        | otherwise = False -- esto quizas ni es necesario porque no está en el 'asegura'
+
 main:: IO()
 main = do
     --print(absoluto (-5))
@@ -47,7 +51,9 @@ main = do
     --print(maximo3 3 6 9)
     --print(algunoEsCero 5.5 0)
     --print(algunoEsCero2 5.5 1.1)
-    print(ambosSonCero 0 1)
-    print(ambosSonCero2 1 0)
-    print(sumaDistintos 2 2 2)
-    print(esMultiploDe 10 2)
+    --print(ambosSonCero 0 1)
+    --print(ambosSonCero2 1 0)
+    --print(sumaDistintos 2 2 2)
+    --print(esMultiploDe 10 2)
+    print(estanRelacionados 0 5)
+    print(mod 0 5)
