@@ -44,6 +44,33 @@ estanRelacionados :: Integer -> Integer -> Bool
 estanRelacionados a b   | (a /= 0) && (b /= 0) && (mod a b == 0) = True
                         | otherwise = False -- esto quizas ni es necesario porque no está en el 'asegura'
 
+type Punto2D = (Float,Float)
+
+productoInterno :: Punto2D -> Punto2D -> Float
+productoInterno (a, b) (c, d) = a * c + b * d
+productoInterno2 :: ((Float, Float), (Float, Float) )-> Float
+productoInterno2 ((a, b),(c, d) )= a * c + b * d
+
+esParMenor :: (Float, Float) -> (Float, Float) -> Bool
+esParMenor (a,b) (c,d)  | (a>c) && (b>d) == True = True
+                        | otherwise = False
+
+distancia :: (Float, Float) ->  (Float, Float) ->  Float
+distancia (a,b) (c,d) = sqrt((a-c)**2 + (b-d)**2)
+
+sumarSoloMultiplos :: (Integer, Integer, Integer) -> Integer -> Integer
+sumarSoloMultiplos (a,b,c) k | mod a k == 0 && mod b k == 0 && mod c k == 0 = a+b+c
+                             | mod a k == 0 && mod b k == 0 = a+b
+                             | mod a k == 0 &&  mod c k == 0 = a+c
+                             | mod b k == 0 && mod c k == 0 = b+c
+                             | mod a k == 0 = a
+                             | mod b k == 0 = b
+                             | mod c k == 0 = c
+                             | otherwise = 0
+
+crearPar :: t1 -> t2 -> (t1,t2)
+crearPar t1 t2 = (t1,t2)
+
 main:: IO()
 main = do
     --print(absoluto (-5))
@@ -55,5 +82,11 @@ main = do
     --print(ambosSonCero2 1 0)
     --print(sumaDistintos 2 2 2)
     --print(esMultiploDe 10 2)
-    print(estanRelacionados 0 5)
-    print(mod 0 5)
+    --print(estanRelacionados 0 5)
+    --print(mod 0 5)
+    print(productoInterno (2.5,7.7) (144.3,534.75654))
+    --print(productoInterno2 ((2.5,7.7), (144.3,534.75654)))
+    --print(esParMenor (5.5,6.6) (4.4,8.5))
+    --print(distancia (1.0,1.0) (2.0,1.0))
+    print(sumarSoloMultiplos (4,4,3) 2)
+    print(crearPar 5 True)
