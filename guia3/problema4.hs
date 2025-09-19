@@ -13,7 +13,7 @@ productoInterno (a, b) (c, d) = a * c + b * d
 
 -- b) esParMenor: dadas dos tuplas de R × R, decide si cada coordenada de la primera tupla es menor a la coordenada correspondiente de la segunda tupla.
 
-problema esParMenor((a,b):(R,R), (c,d):(R,R)): Bool {
+problema esParMenor((a,b):(R,R), (c,d):(R,R)): Bool {   -- MAL ESPECIFICADO; (t1,t2 : RxR) : Bool
     requiere{True}
     asegura{(res = true) <-> ( (a>c) AND (b>d) )}
 }

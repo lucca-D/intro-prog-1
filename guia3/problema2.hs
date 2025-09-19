@@ -87,3 +87,4 @@ sumaDistintos x y z | x == y && y == z = 0
 esMultiploDe :: Integer -> Integer -> Bool
 esMultiploDe x y    | (x>0) && (y>0) && (mod x y == 0) = True
                     | otherwise = False
+

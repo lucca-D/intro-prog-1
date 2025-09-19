@@ -79,6 +79,15 @@ g5 :: Integer -> Integer
 g5 n | mod n 2 == 0 = div n 2
     | otherwise = 3*n + 1
 
+digitoUnidades :: Integer -> Integer
+digitoUnidades x = mod x 10
+--2j
+digitoDecenas :: Integer -> Integer
+digitoDecenas x = mod (div x 10) 10
+
+sumaUltimosDosDigitos :: Integer -> Integer
+sumaUltimosDosDigitos x = (digitoUnidades x) + (digitoDecenas x)
+
 main:: IO()
 main = do
     --print(absoluto (-5))
@@ -98,7 +107,12 @@ main = do
     --print(distancia (1.0,1.0) (2.0,1.0))
     --print(sumarSoloMultiplos (4,4,3) 2)
     --print(crearPar 5 True)
-    print(f5 7)
-    print(f5 8)
-    print(g5 4)
+    --print(f5 7)
+    --print(f5 8)
+    --print(g5 4)
     print(g5 5)
+    print(div 17 5)
+    print(digitoUnidades (-125))
+    print(sumaUltimosDosDigitos 356)
+    --print(100 mod 10) --NO COMPILA
+    --print(mod 10 5)
