@@ -71,6 +71,14 @@ sumarSoloMultiplos (a,b,c) k | mod a k == 0 && mod b k == 0 && mod c k == 0 = a+
 crearPar :: t1 -> t2 -> (t1,t2)
 crearPar t1 t2 = (t1,t2)
 
+f5 :: Integer -> Integer
+f5 n | n <= 7 = n^2
+    | otherwise = 2*n - 1
+
+g5 :: Integer -> Integer
+g5 n | mod n 2 == 0 = div n 2
+    | otherwise = 3*n + 1
+
 main:: IO()
 main = do
     --print(absoluto (-5))
@@ -84,9 +92,13 @@ main = do
     --print(esMultiploDe 10 2)
     --print(estanRelacionados 0 5)
     --print(mod 0 5)
-    print(productoInterno (2.5,7.7) (144.3,534.75654))
+    --print(productoInterno (2.5,7.7) (144.3,534.75654))
     --print(productoInterno2 ((2.5,7.7), (144.3,534.75654)))
     --print(esParMenor (5.5,6.6) (4.4,8.5))
     --print(distancia (1.0,1.0) (2.0,1.0))
-    print(sumarSoloMultiplos (4,4,3) 2)
-    print(crearPar 5 True)
+    --print(sumarSoloMultiplos (4,4,3) 2)
+    --print(crearPar 5 True)
+    print(f5 7)
+    print(f5 8)
+    print(g5 4)
+    print(g5 5)

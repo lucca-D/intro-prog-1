@@ -3,7 +3,7 @@
 
 -- a) productoInterno: calcula el producto interno entre dos tuplas de R × R.
 
-problema productoInterno((x1,y1):(RxR),(x2,y2):(R:R)):R {
+problema productoInterno((x1,y1):(RxR),(x2,y2):(R:R)):R { -- ESTA ESPECIFICACION ESTA MAL, deberia ser: problema p
     requiere{True}
     asegura{res sera el resultado de x1*x2 + y1*y2}
 }
