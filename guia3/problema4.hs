@@ -3,9 +3,13 @@
 
 -- a) productoInterno: calcula el producto interno entre dos tuplas de R × R.
 
-problema productoInterno((x1,y1):(RxR),(x2,y2):(R:R)):R { -- ESTA ESPECIFICACION ESTA MAL, deberia ser: problema p
+--problema productoInterno((x1,y1):(RxR),(x2,y2):(R:R)):R { -- ESTA ESPECIFICACION ESTA MAL, deberia ser: problema p
+--    requiere{True}
+--    asegura{res sera el resultado de x1*x2 + y1*y2}
+--}
+problema productoInterno(t,k: RxR): R{
     requiere{True}
-    asegura{res sera el resultado de x1*x2 + y1*y2}
+    asegura{res = t1*k1 + t2*k2}
 }
 
 productoInterno :: (Float, Float) -> (Float, Float) -> Float
@@ -13,9 +17,13 @@ productoInterno (a, b) (c, d) = a * c + b * d
 
 -- b) esParMenor: dadas dos tuplas de R × R, decide si cada coordenada de la primera tupla es menor a la coordenada correspondiente de la segunda tupla.
 
-problema esParMenor((a,b):(R,R), (c,d):(R,R)): Bool {   -- MAL ESPECIFICADO; (t1,t2 : RxR) : Bool
+--problema esParMenor((a,b):(R,R), (c,d):(R,R)): Bool {   -- MAL ESPECIFICADO; (t1,t2 : RxR) : Bool
+--    requiere{True}
+--    asegura{(res = true) <-> ( (a>c) AND (b>d) )}
+--}
+problema esParMenor(a,b:RxR) : Bool{
     requiere{True}
-    asegura{(res = true) <-> ( (a>c) AND (b>d) )}
+    asegura{res = True <-> (a1>b1)&&(a2>b2)}
 }
 
 esParMenor :: (Float, Float) -> (Float, Float) -> Bool
