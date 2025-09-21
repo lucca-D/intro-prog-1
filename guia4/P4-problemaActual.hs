@@ -12,8 +12,12 @@ fib2 0 = 0
 fib2 1 = 1
 fib2 n = fib2 (n - 1) + fib2 (n - 2)
 
+parteEntera :: Float -> Integer
+parteEntera x = div x 10
+
 main :: IO()
 main = do
-    print(factorial 3)
-    print(fib 10)
-    print(fib2 (-1))
+    --print(factorial 3)
+    --print(fib 10)
+    --print(fib2 (-1))
+    print(parteEntera 10.0)
