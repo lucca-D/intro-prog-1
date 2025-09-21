@@ -1,10 +1,7 @@
-
-
-type Natural = Integer
-esDivisible :: Natural -> Natural -> Bool
-esDivisible x y | x < y = False
-                | x - y == 0 = True
-                | otherwise = esDivisible (x - y) y
+medioFact :: Integer -> Integer
+medioFact n | n == 0 = 1
+            | n == 1 = 1
+            | n-2 >= 0 = n * medioFact (n-2)
 
 main :: IO()
 main = do
@@ -12,4 +9,4 @@ main = do
     --print(fib 10)
     --print(fib2 (-1))
     --print(parteEntera 10.0)
-    print(esDivisible 50 5)
+    print(medioFact 100000)
