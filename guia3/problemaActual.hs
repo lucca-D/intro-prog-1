@@ -90,7 +90,7 @@ sumaUltimosDosDigitos x = (digitoUnidades x) + (digitoDecenas x)
 
 main:: IO()
 main = do
-    --print(absoluto (-5))
+    --print(absoluto (-5)) -
     --print(maximoAbsoluto 5 (-6))
     --print(maximo3 3 6 9)
     --print(algunoEsCero 5.5 0)
@@ -110,9 +110,9 @@ main = do
     --print(f5 7)
     --print(f5 8)
     --print(g5 4)
-    print(g5 5)
-    print(div 17 5)
-    print(digitoUnidades (-125))
+    --print(g5 5)
+    --print(div 17 5)
+    --print(digitoUnidades (-125))
     print(sumaUltimosDosDigitos 356)
     --print(100 mod 10) --NO COMPILA
     --print(mod 10 5)

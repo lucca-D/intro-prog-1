@@ -8,7 +8,7 @@
 -- problema sumaUltimosDosDigitos (x : Z) : Z {
 -- requiere: {True}
 -- asegura: {res = (|x| m´od 10)+( |x| 10 m´od 10)}
--- }
+-- } -
 -- Por ejemplo:
 -- comparar 45 312 ⇝-1 porque 45 ≺ 312 y 4+5>1+2.
 -- comparar 2312 7 ⇝ 1 porque 2312 ≺ 7 y 1+2<0+7.
