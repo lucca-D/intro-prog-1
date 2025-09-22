@@ -8,12 +8,6 @@ problema sumaImpares(n:N):N {
     asegura{resultado será la sumatoria de los primeros n números impares naturales}
 }
 
--- Hago uso de la funcion esDivisible del problema 3
-type Natural = Integer
-esDivisible :: Natural -> Natural -> Bool
-esDivisible x y | x < y = False
-                | x - y == 0 = True
-                | otherwise = esDivisible (x - y) y
-
-
--- NO ME SALIO
+sumaImpares :: Integer -> Integer
+sumaImpares n   | n == 1 = 1
+                | otherwise = n*2 - 1 + sumaImpares(n-1)
