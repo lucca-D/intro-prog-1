@@ -1,10 +1,8 @@
-sumaImpares :: Integer -> Integer
-sumaImpares n   | n == 1 = 1
-                | otherwise = n*2 - 1 + sumaImpares(n-1)
+sumaDigitos :: Integer -> Integer
+sumaDigitos n   | n < 10 = n
+                | otherwise = mod n 10 + sumaDigitos(div n 10)
 
 main :: IO()
 main = do
     --print(factorial 3)
-    --print(fib 10)
-    --print(fib2 (-1))
-    print(sumaImpares 4)
+    print(sumaDigitos 123)
