@@ -1,24 +1,17 @@
-f1 :: Integer -> Integer
-f1 n    | n == 0 = 1
-        | otherwise = 2^n + f1 (n-1)
+factorial :: Integer -> Integer
+factorial n     | n == 0 || n == 1 = 1
+                | otherwise = n * factorial(n-1)
 
-f2 :: Integer -> Float -> Float
-f2 n q  | n == 1 = q^n
-        | otherwise = q^n + f2 (n-1) q
+eAprox :: Integer -> Float
+eAprox 0 = 1
+eAprox n = 1.0 / fromInteger (factorial n) + eAprox (n-1)
 
-f3 :: Integer -> Float -> Float
-f3 n q  | n == 0 = 1
-        | otherwise = f2 (2*n) q
-
-f4 ::  Integer -> Float -> Float
-f4 n q  | n == 0 = 1
-        | n == 1 = q^(2*n) + q^n
-        | otherwise = f2 (2*n) q - f2 (n-1) q
+e :: Float
+e = eAprox 10
 
 main :: IO()
 main = do
-    print(f1 6)
-    print(f2 6 2)
-    print(f3 3 2)
-    print(f4 3 2)
-    print(2**3 + 2**4 + 2**5 + 2**6)
+    print(eAprox 8)
+    print(eAprox 9)
+    print(eAprox 10)
+    print(e)
