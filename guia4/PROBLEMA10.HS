@@ -14,11 +14,3 @@ f4 ::  Integer -> Float -> Float
 f4 n q  | n == 0 = 1
         | n == 1 = q^(2*n) + q^n
         | otherwise = f2 (2*n) q - f2 (n-1) q
-
-main :: IO()
-main = do
-    print(f1 6)
-    print(f2 6 2)
-    print(f3 3 2)
-    print(f4 3 2)
-    print(2**3 + 2**4 + 2**5 + 2**6)
