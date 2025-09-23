@@ -15,6 +15,11 @@ esCapicua n     | n < 10 = True
                 | n < 1000 && iesimoDigito n 1 == iesimoDigito n (contarDigitos n) = True
                 | otherwise = iesimoDigito n 1 == iesimoDigito n (contarDigitos n) && esCapicua (removerPrimerYUltimoDigito n)
 
+todosDigitosIguales :: Integer -> Bool
+todosDigitosIguales n   | n < 10 = True
+                        | n < 100 = mod n 10 == div n 10
+                        | otherwise = mod n 10 == div n (10^(contarDigitos n - 1)) && todosDigitosIguales(div n 10)
+
 main :: IO()
 main = do
     --print(factorial 3)
@@ -23,5 +28,8 @@ main = do
     --print(removerPrimerYUltimoDigito 4521389)
     --print(iesimoDigito 4521389 (contarDigitos 4521389))
     --print(10^(contarDigitos 4521389 - 1))
-    print(esCapicua 5665)
-    print(esCapicua 98765432100123456789)
+    --print(esCapicua 5665)
+    --print(esCapicua 98765432100123456789)
+    print(todosDigitosIguales 556)
+    print(todosDigitosIguales 555)
+    print(todosDigitosIguales 55555556)

@@ -6,7 +6,11 @@ Ejercicio 6. Implementar la funci´on todosDigitosIguales :: Integer->Bool que d
  }
 --}
 
+cantDigitos :: Integer -> Integer
+cantDigitos n   | n<10 = 1
+                | otherwise = 1 + cantDigitos(div n 10)
+
 todosDigitosIguales :: Integer -> Bool
 todosDigitosIguales n   | n < 10 = True
-                        | div n 10 == 0 =?
-                        | mod n 10 == div n 10 == div n 100 == div n 1000
+                        | n < 100 = mod n 10 == div n 10
+                        | otherwise = mod n 10 == div n (10^(contarDigitos n - 1)) && todosDigitosIguales(div n 10)
