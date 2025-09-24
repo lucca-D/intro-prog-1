@@ -1,9 +1,16 @@
-raizDe2Aprox :: Integer -> Float
-raizDe2Aprox 1 = 2
-raizDe2Aprox n = 2 + 1.0 / raizDe2Aprox (n-1)
+factorial :: Integer -> Integer
+factorial n     | n == 0 || n == 1 = 1
+                | otherwise = n * factorial(n-1)
+
+eAprox :: Integer -> Float
+eAprox n    | n == 1 = 2
+            | otherwise = 1.0 / fromIntegral(factorial n) + eAprox (n-1)
+
+--b) definir e como la aproximacion de los 10 primeros terminos de eAprox -
+e :: Float
+e = eAprox 10
 
 main :: IO()
 main = do
-    print(raizDe2Aprox 2)
-    print(raizDe2Aprox 3)
-    print(raizDe2Aprox 4000)
+    print e
+    print (eAprox 10)
