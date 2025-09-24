@@ -1,16 +1,14 @@
-factorial :: Integer -> Integer
-factorial n     | n == 0 || n == 1 = 1
-                | otherwise = n * factorial(n-1)
+g :: Integer -> Integer -> Integer
+g i 1 = i
+g i m = i^m + g i (m-1)
 
-eAprox :: Integer -> Float
-eAprox n    | n == 1 = 2
-            | otherwise = 1.0 / fromIntegral(factorial n) + eAprox (n-1)
-
---b) definir e como la aproximacion de los 10 primeros terminos de eAprox -
-e :: Float
-e = eAprox 10
+f :: Integer -> Integer -> Integer
+f 1 m = g 1 m
+f n m = g n m + f (n-1) m
 
 main :: IO()
 main = do
-    print e
-    print (eAprox 10)
+    --print (g 2 3)
+    print(f 2 2)
+    print(g 2 1)
+    print(g 2 2)
