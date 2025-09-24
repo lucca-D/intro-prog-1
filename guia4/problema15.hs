@@ -5,8 +5,3 @@ sumatoriaInterna n m = fromInteger n / fromInteger m + sumatoriaInterna n (m-1)
 sumaRacionales :: Integer -> Integer -> Float
 sumaRacionales 1 m = sumatoriaInterna 1 m
 sumaRacionales n m = sumatoriaInterna n m + sumaRacionales (n-1) m
-
-main :: IO()
-main = do
-    --print (g 2 3)
-    print(sumatoriaInterna 2 2)
