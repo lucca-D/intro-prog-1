@@ -1,4 +1,4 @@
-g :: Integer -> Integer -> Integer
+g :: Integer -> Integer -> Integer --
 g i 1 = i
 g i m = i^m + g i (m-1)
 
