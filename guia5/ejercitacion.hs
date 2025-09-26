@@ -32,3 +32,7 @@ pertenece :: Int -> [Int]-> Bool
 pertenece _ [] = False
 pertenece x (y:ys)  | x == y = True
                     | otherwise = pertenece x ys
+
+pertenece2 :: (Eq t) => t-> [t]-> Bool              -- OJO ACA. si yo no especifico (Eq t) me tira ERROR porque vos estas declarando una funcion que puede tomar cualquier tipo t, 
+pertenece2 x [] = False                             -- entonces si usas comparados como == TENES que declarar la restriccion de que el tipo de dato t es de la clase Eq
+pertenece2 x (y:ys) = x == y || pertenece2 x ys

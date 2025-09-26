@@ -1,13 +1,15 @@
-principio :: [t] -> [t]
-principio [x] = []
-principio (x:xs) = x : principio xs
+esRepetido :: (Eq t) => t -> [t]-> [t]
+esRepetido y [z]    | y == z = []
+                    | otherwise = [z]
+esRepetido y (z:zs) | y == z = zs
+                    | otherwise = z : esRepetido y zs
 
-reverso :: [t] -> [t]
-reverso [] = []
-reverso (x:xs) = reverso xs ++ [x] 
+eliminarRepetidos :: (Eq t) => [t]-> [t]
+eliminarRepetidos [] = []
+eliminarRepetidos [x] = [x]
+eliminarRepetidos (x:xs) = eliminarRepetidos (esRepetido x xs)
 
 -- main
 main :: IO()
 main = do
-    print(principio [1,2,3])
-    print(reverso [1,2,3])
+    print(eliminarRepetidos [1,2,3,1])
