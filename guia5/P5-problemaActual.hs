@@ -1,47 +1,40 @@
-sacarBlancosRepetidos :: [Char]-> [Char]
-sacarBlancosRepetidos [] = []
-sacarBlancosRepetidos [x] = [x]
-sacarBlancosRepetidos (x:xs)    | x == head xs && x == ' ' = sacarBlancosRepetidos xs
-                                | otherwise = x : sacarBlancosRepetidos xs
+esPrimoAux :: Integer -> Integer -> Bool
+esPrimoAux 1 m = True
+esPrimoAux n m  | n == m = True
+                | mod n m == 0 = False
+                | otherwise = esPrimoAux n (m+1)
 
-trimBlancosStart :: [Char] -> [Char]
-trimBlancosStart [] = []
-trimBlancosStart [x]        | x == ' ' = []
-                            | otherwise = [x]
-trimBlancosStart (x:xs)     | x == ' ' = xs
-                            | otherwise = (x:xs)
+esPrimo :: Integer -> Bool
+esPrimo n = esPrimoAux n 2
 
-trimBlancosEnd :: [Char] -> [Char]
-trimBlancosEnd [] = []
-trimBlancosEnd [x]      | x == ' ' = []
-                        | otherwise = [x]
-trimBlancosEnd (x:xs)   = x : trimBlancosEnd xs
+proximoPrimo :: Integer -> Integer
+proximoPrimo n  | esPrimo (n+1) = n+1
+                | otherwise = proximoPrimo (n+1)
 
-encontrarPalabrasAux :: [Char] -> [Char]
-encontrarPalabrasAux [] = []
-encontrarPalabrasAux [x]        | x == ' ' = []
-                                | otherwise = [x]
-encontrarPalabrasAux (x:xs)     | x == ' ' = []
-                                | otherwise = x : encontrarPalabrasAux xs
+descomponerEnPrimosAux :: Integer -> Integer -> [Integer]
+descomponerEnPrimosAux x n      | esPrimo x = [x] 
+                                | mod x n == 0 = [n] ++ descomponerEnPrimosAux (div x n) 2
+                                | otherwise = descomponerEnPrimosAux x (proximoPrimo n)
 
-encontrarPalabras :: [Char] -> [Char] -> [[Char]]
-encontrarPalabras [] y      = []
-encontrarPalabras [x] y     = [y]
-encontrarPalabras (x:xs) y  | x == ' ' = [encontrarPalabrasAux y] ++ encontrarPalabras xs xs
-                            | otherwise = encontrarPalabras xs y
-
-doyFormato :: [Char] -> [Char]
-doyFormato x = trimBlancosEnd (trimBlancosStart (sacarBlancosRepetidos x))
-
-palabras :: [Char]-> [[Char]]
-palabras x = encontrarPalabras (doyFormato x) (doyFormato x)
+descomponerEnPrimos :: [Integer]-> [[Integer]]
+descomponerEnPrimos [x] = [descomponerEnPrimosAux x 2]
+descomponerEnPrimos (x:xs) = [descomponerEnPrimosAux x 2] ++ descomponerEnPrimos xs
 
 -- main -
 main :: IO()
 main = do
-    print(palabras "hola a todos")
-    print(palabras " hola  a   todos   ")
-    print(palabras "     hola a  todos")
-    print(palabras "hola a todos")
-    print(palabras "hola a todos asd  aa a         fdd  fd")
-    print(palabras "hola a todos   ")
+    print(descomponerEnPrimosAux 4 2)
+    print(descomponerEnPrimosAux 5 2)
+    print(descomponerEnPrimosAux 6 2)
+    print(descomponerEnPrimosAux 7 2)
+    print(descomponerEnPrimosAux 8 2)
+    print(descomponerEnPrimosAux 9 2)
+    print(descomponerEnPrimosAux 10 2)
+    print(descomponerEnPrimosAux 11 2)
+    print(descomponerEnPrimosAux 21 2)
+    print(descomponerEnPrimosAux 33 2)
+    --
+    print(descomponerEnPrimosAux 128 2)
+    --
+    print(descomponerEnPrimos [4,5,6,7,8,9,10,11,21,33])
+    
