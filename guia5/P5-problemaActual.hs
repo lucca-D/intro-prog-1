@@ -1,47 +1,44 @@
 type Texto = [Char]
-type Nombre = Texto
-type Telefono = Texto
-type Contacto = (Nombre, Telefono)
-type ContactosTel = [Contacto]
+type Identificacion = Integer
+type Disponibilidad = Bool
 
+type Ubicacion = Texto
+type Estado = (Disponibilidad, Ubicacion)
+type Locker = (Identificacion, Estado)
+type MapaDeLockers = [Locker]
 
-enLosContactos :: Nombre -> ContactosTel -> Bool
-enLosContactos [] l = False
-enLosContactos s [] = False
-enLosContactos s ((nombre,numero):ls)   | s == nombre = True
-                                        | otherwise = enLosContactos s ls
+existeElLocker :: Identificacion -> MapaDeLockers -> Bool
+existeElLocker _ [] = False
+existeElLocker id ((idL,e):ls)      | id == idL = True
+                                    | otherwise = existeElLocker id ls
 
-actualizarContacto :: Contacto -> ContactosTel-> ContactosTel
-actualizarContacto ([],_) l = l
-actualizarContacto n [] = []
-actualizarContacto (nombreC,numeroC) ((nombreL,numeroL):ls)    | nombreC == nombreL = [(nombreL,numeroC)] ++ actualizarContacto (nombreC,numeroC) ls
-                                                                | otherwise = [(nombreL,numeroL)] ++ actualizarContacto (nombreC,numeroC) ls
-agregarContacto :: Contacto-> ContactosTel-> ContactosTel
-agregarContacto ([],_) l = l
-agregarContacto c [] = [c]
-agregarContacto (nombreC,numeroC) l     | enLosContactos nombreC l = actualizarContacto (nombreC,numeroC) l
-                                        | otherwise = l ++ [(nombreC,numeroC)]
+ubicacionDelLocker :: Identificacion -> MapaDeLockers -> Ubicacion
+ubicacionDelLocker _ [] = "No existe el locker"
+ubicacionDelLocker id ((idL,(disp,ubi)):ls)     | id == idL = ubi
+                                                | otherwise = ubicacionDelLocker id ls
 
-eliminarContactoAux :: Contacto-> ContactosTel-> ContactosTel
-eliminarContactoAux ([],_) l = l
-eliminarContactoAux c [] = []
-eliminarContactoAux (nombreC,numeroC) ((nombreL,numeroL):ls)    | nombreC == nombreL = [] ++ eliminarContactoAux (nombreC,numeroC) ls
-                                                                | otherwise = [(nombreL,numeroL)] ++ eliminarContactoAux (nombreC,numeroC) ls
+estaDisponibleElLocker :: Identificacion->MapaDeLockers->Bool
+estaDisponibleElLocker _ [] = False
+estaDisponibleElLocker id ((idL,(disp,ubi)):ls) | id == idL = disp
+                                                | otherwise = estaDisponibleElLocker id ls
 
-eliminarContacto :: Contacto-> ContactosTel-> ContactosTel
-eliminarContacto ([],_) l = l
-eliminarContacto c [] = [c]
-eliminarContacto (nombreC,numeroC) l    | enLosContactos nombreC l = eliminarContactoAux (nombreC,numeroC) l
-                                        | otherwise = l
-
+ocuparLocker :: Identificacion->MapaDeLockers->MapaDeLockers
+ocuparLocker _ [] = []
+ocuparLocker id ((idL,(disp,ubi)):ls)     | id == idL && estaDisponibleElLocker id ((idL,(disp,ubi)):ls) = [(idL,(False,ubi))] ++ ocuparLocker id ls
+                                        | otherwise = [(idL,(disp,ubi))] ++ ocuparLocker id ls
 -- main -
 main :: IO()
 main = do
-    print(enLosContactos "nestor" [("gabriel","1121435556"),("jorge","11214345645"),("nestor","1132689453")])
-    print(enLosContactos "pablo" [("gabriel","1121435556"),("jorge","11214345645"),("nestor","1132689453")])
-    print(enLosContactos "pablo" [("gabriel","1121435556")])
-    print(enLosContactos "gabriel" [("gabriel","1121435556")])
-    --print(actualizarContacto ("gabriel","00cambiado00") [("gabriel","1121435556"),("jorge","11214345645"),("nestor","1132689453")])
-    print(agregarContacto ("gabriel2","00cambiado00") [("gabriel","1121435556"),("jorge","11214345645"),("nestor","1132689453")])
-    print(eliminarContacto ("gabriel","1121435556") [("gabriel","1121435556"),("jorge","11214345645"),("nestor","1132689453")])
+    --print(existeElLocker 1 [(1,(True,"1er Piso")),(2,(False,"1er Piso")),(3,(True,"2do Piso"))])
+    --print(existeElLocker 2 [(1,(True,"1er Piso")),(2,(False,"1er Piso")),(3,(True,"2do Piso"))])
+    --print(existeElLocker 3 [(1,(True,"1er Piso")),(2,(False,"1er Piso")),(3,(True,"2do Piso"))])
+    --print(ubicacionDelLocker 1 [(1,(True,"1er Piso")),(2,(False,"1er Piso")),(3,(True,"2do Piso"))])
+    --print(ubicacionDelLocker 3 [(1,(True,"1er Piso")),(2,(False,"1er Piso")),(3,(True,"2do Piso"))])
+    --print(ubicacionDelLocker 4 [(1,(True,"1er Piso")),(2,(False,"1er Piso")),(3,(True,"2do Piso"))])
+    --print(estaDisponibleElLocker 1 [(1,(True,"1er Piso")),(2,(False,"1er Piso")),(3,(True,"2do Piso"))])
+    --print(estaDisponibleElLocker 2 [(1,(True,"1er Piso")),(2,(False,"1er Piso")),(3,(True,"2do Piso"))])
+    print(ocuparLocker 1 [(1,(True,"1er Piso")),(2,(False,"1er Piso")),(3,(True,"2do Piso"))])
+    print(ocuparLocker 2 [(1,(True,"1er Piso")),(2,(False,"1er Piso")),(3,(True,"2do Piso"))])
+    print(ocuparLocker 3 [(1,(True,"1er Piso")),(2,(False,"1er Piso")),(3,(True,"2do Piso"))])
+    print(ocuparLocker 4 [(1,(True,"1er Piso")),(2,(False,"1er Piso")),(3,(True,"2do Piso"))])
     
