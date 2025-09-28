@@ -83,11 +83,37 @@ quitarTodos x (y:ys)    | x == y = quitarTodos x ys
  las repeticiones adicionales--}
 
 esRepetido :: (Eq t) => t -> [t]-> [t]
-esRepetido y [z] = y == z = []
-esRepetido y (z:zs) | y == z = zs
-                    | otherwise = z : esRepetido y zs
+esRepetido y [] = []
+esRepetido y [z]    | y == z = []
+                    | otherwise = [y]
+esRepetido y (z:zs) | y == z = []     -- descarto y , sigo evaluando el resto de la lista
+                    | otherwise = esRepetido y zs   -- 
 
 eliminarRepetidos :: (Eq t) => [t]-> [t]
 eliminarRepetidos [] = []
 eliminarRepetidos [x] = [x]
 eliminarRepetidos (x:xs) = esRepetido x xs ++ eliminarRepetidos xs
+
+{--  8. mismosElementos :: (Eq t) => [t]-> [t]-> Bool, que dadas dos listas devuelve verdadero s´ı y solamente s´ı
+ ambas listas contienen los mismos elementos, sin tener en cuenta repeticiones, es decir:
+  problema mismosElementos (s: seq⟨T⟩, r: seq⟨T⟩) : B {
+ requiere: { True }
+ asegura: { resultado = true ↔ todo elemento de s pertenece r y viceversa}
+ }
+ --}
+
+mismosElementosAux :: (Eq t) => t -> [t] -> Bool
+mismosElementosAux x [] = True
+mismosElementosAux x [y]    | x == y = True
+                            | otherwise = False
+mismosElementosAux x (y:ys) | x == y = True
+                            | otherwise = mismosElementosAux x ys
+
+mismosElementosLista :: (Eq t) => [t] -> [t] -> Bool
+mismosElementosLista [] y = True
+--mismosElementosLista x [] = True -- no hace falta este caso porque unicamente es necesario el caso [] para las listas donde haces pattern matching.
+-- ademas, si llamas a esta funcion 2 veces, invirtiendo los parametros en cada llamada, entonces basta con corroborar el vacio de una de ellas
+mismosElementosLista (x:xs) y = mismosElementosAux x y && mismosElementosLista xs y
+
+mismosElementos :: (Eq t) => [t] -> [t] -> Bool
+mismosElementos s r = mismosElementosLista s r && mismosElementosLista r s
