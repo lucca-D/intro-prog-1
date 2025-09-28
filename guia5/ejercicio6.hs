@@ -1,15 +1,24 @@
+{--Ejercicio 6. En este ejercicio trabajaremos con la lista de contactos del tel´efono.--}
+
+{-- a) Implementar una funci´on que me diga si una persona aparece en mi lista de contactos del tel´efono: enLosContactos ::
+ Nombre-> ContactosTel-> Bool--}
+
 type Texto = [Char]
 type Nombre = Texto
 type Telefono = Texto
 type Contacto = (Nombre, Telefono)
 type ContactosTel = [Contacto]
 
-
 enLosContactos :: Nombre -> ContactosTel -> Bool
 enLosContactos [] l = False
 enLosContactos s [] = False
+--enLosContactos s [(nombre,numero)]      | s == nombre = True
+--                                        | otherwise = False
 enLosContactos s ((nombre,numero):ls)   | s == nombre = True
                                         | otherwise = enLosContactos s ls
+
+{--b) Implementar una funci´on que agregue una nueva persona a mis contactos, si esa persona est´a ya en mis contactos entonces
+ actualiza el tel´efono. agregarContacto :: Contacto-> ContactosTel-> ContactosTel--}
 
 actualizarContacto :: Contacto -> ContactosTel-> ContactosTel
 actualizarContacto ([],_) l = l
@@ -22,6 +31,9 @@ agregarContacto c [] = [c]
 agregarContacto (nombreC,numeroC) l     | enLosContactos nombreC l = actualizarContacto (nombreC,numeroC) l
                                         | otherwise = l ++ [(nombreC,numeroC)]
 
+{--c) Implementar una funci´on que dado un nombre, elimine un contacto de mis contactos. Si esa persona no est´a no hace
+ nada. eliminarContacto :: Nombre-> ContactosTel-> ContactosTel--}
+
 eliminarContactoAux :: Contacto-> ContactosTel-> ContactosTel
 eliminarContactoAux ([],_) l = l
 eliminarContactoAux c [] = []
@@ -33,15 +45,3 @@ eliminarContacto ([],_) l = l
 eliminarContacto c [] = [c]
 eliminarContacto (nombreC,numeroC) l    | enLosContactos nombreC l = eliminarContactoAux (nombreC,numeroC) l
                                         | otherwise = l
-
--- main -
-main :: IO()
-main = do
-    print(enLosContactos "nestor" [("gabriel","1121435556"),("jorge","11214345645"),("nestor","1132689453")])
-    print(enLosContactos "pablo" [("gabriel","1121435556"),("jorge","11214345645"),("nestor","1132689453")])
-    print(enLosContactos "pablo" [("gabriel","1121435556")])
-    print(enLosContactos "gabriel" [("gabriel","1121435556")])
-    --print(actualizarContacto ("gabriel","00cambiado00") [("gabriel","1121435556"),("jorge","11214345645"),("nestor","1132689453")])
-    print(agregarContacto ("gabriel2","00cambiado00") [("gabriel","1121435556"),("jorge","11214345645"),("nestor","1132689453")])
-    print(eliminarContacto ("gabriel","1121435556") [("gabriel","1121435556"),("jorge","11214345645"),("nestor","1132689453")])
-    
