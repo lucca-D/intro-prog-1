@@ -1,17 +1,15 @@
-esRepetido :: (Eq t) => t -> [t]-> [t]
-esRepetido y [] = []
-esRepetido y [z]    | y == z = []
-                    | otherwise = [y]
-esRepetido y (z:zs) | y == z = []     -- descarto y , sigo evaluando el resto de la lista
-                    | otherwise = esRepetido y zs   -- 
+reversa :: (Eq t) => [t] -> [t]
+reversa [] = []
+reversa [x] = [x]
+reversa (x:xs) = reversa xs ++ [x]
 
-eliminarRepetidos :: (Eq t) => [t]-> [t]
-eliminarRepetidos [] = []
-eliminarRepetidos [x] = [x]
-eliminarRepetidos (x:xs) = esRepetido x xs ++ eliminarRepetidos xs
+capicua :: (Eq t) => [t] -> Bool
+capicua [] = True
+capicua x = x == reversa x
 
 -- main -
 main :: IO()
 main = do
-    print(eliminarRepetidos [1,2,3])
-    print(eliminarRepetidos [1,2,3,1])
+    print(reversa [4,3,2,1])
+    print(capicua [1,2,3])
+    print(capicua [3,2,3])

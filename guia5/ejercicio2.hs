@@ -117,3 +117,19 @@ mismosElementosLista (x:xs) y = mismosElementosAux x y && mismosElementosLista x
 
 mismosElementos :: (Eq t) => [t] -> [t] -> Bool
 mismosElementos s r = mismosElementosLista s r && mismosElementosLista r s
+
+{-- 9. capicua :: (Eq t) => [t]-> Bool seg´un la siguiente especificaci´on:
+ problema capicua (s: seq⟨T⟩) : B {
+ requiere: { True }
+ asegura: { (resultado = true) ↔ (s = reverso(s)) }
+ }
+ Por ejemplo capicua [´a’,’c’, ’b’, ’b’, ’c’, ´a’] es true, capicua [´a’, ’c’, ’b’, ’d’, ´a’] es false.--}
+
+reversa :: (Eq t) => [t] -> [t]
+reversa [] = []
+reversa [x] = [x]
+reversa (x:xs) = reversa xs ++ [x]
+
+capicua :: (Eq t) -> [t] -> Bool
+capicua [] = True
+capicua x = x == reversa x
