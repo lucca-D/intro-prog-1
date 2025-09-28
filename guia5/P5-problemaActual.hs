@@ -1,29 +1,47 @@
-maximoAux :: Integer -> [Integer] -> Integer
-maximoAux x [] = x
-maximoAux x [y]     | x >= y = x
-                    | otherwise = y
-maximoAux x (y:ys)  | x >= y = maximoAux x ys
-                    | otherwise = maximoAux y ys
+sacarBlancosRepetidos :: [Char]-> [Char]
+sacarBlancosRepetidos [] = []
+sacarBlancosRepetidos [x] = [x]
+sacarBlancosRepetidos (x:xs)    | x == head xs && x == ' ' = sacarBlancosRepetidos xs
+                                | otherwise = x : sacarBlancosRepetidos xs
 
-maximo :: [Integer]-> Integer
-maximo [] = 0
-maximo [x] = x
-maximo (x:xs) = maximoAux x xs
+trimBlancosStart :: [Char] -> [Char]
+trimBlancosStart [] = []
+trimBlancosStart [x]        | x == ' ' = []
+                            | otherwise = [x]
+trimBlancosStart (x:xs)     | x == ' ' = xs
+                            | otherwise = (x:xs)
 
-quitar :: Integer -> [Integer] -> [Integer]
-quitar n [] = []
-quitar n [x]        | n == x = []
-                    | otherwise = [x]
-quitar n (x:xs)     | n == x = xs
-                    | otherwise = x : quitar n xs
+trimBlancosEnd :: [Char] -> [Char]
+trimBlancosEnd [] = []
+trimBlancosEnd [x]      | x == ' ' = []
+                        | otherwise = [x]
+trimBlancosEnd (x:xs)   = x : trimBlancosEnd xs
 
-ordenar :: [Integer]-> [Integer]
-ordenar [] = []
-ordenar [x] = [x]
-ordenar (x:xs) = ordenar (quitar (maximo (x:xs)) (x:xs)) ++ [maximo (x:xs)]
+encontrarPalabrasAux :: [Char] -> [Char]
+encontrarPalabrasAux [] = []
+encontrarPalabrasAux [x]        | x == ' ' = []
+                                | otherwise = [x]
+encontrarPalabrasAux (x:xs)     | x == ' ' = []
+                                | otherwise = x : encontrarPalabrasAux xs
+
+encontrarPalabras :: [Char] -> [Char] -> [[Char]]
+encontrarPalabras [] y      = []
+encontrarPalabras [x] y     = [y]
+encontrarPalabras (x:xs) y  | x == ' ' = [encontrarPalabrasAux y] ++ encontrarPalabras xs xs
+                            | otherwise = encontrarPalabras xs y
+
+doyFormato :: [Char] -> [Char]
+doyFormato x = trimBlancosEnd (trimBlancosStart (sacarBlancosRepetidos x))
+
+palabras :: [Char]-> [[Char]]
+palabras x = encontrarPalabras (doyFormato x) (doyFormato x)
 
 -- main -
 main :: IO()
 main = do
-    print(ordenar [4,3,2,1,0,10,15,68])
-    print(ordenar [1,2,3])
+    print(palabras "hola a todos")
+    print(palabras " hola  a   todos   ")
+    print(palabras "     hola a  todos")
+    print(palabras "hola a todos")
+    print(palabras "hola a todos asd  aa a         fdd  fd")
+    print(palabras "hola a todos   ")
