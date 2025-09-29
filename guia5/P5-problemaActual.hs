@@ -1,44 +1,27 @@
-type Texto = [Char]
-type Identificacion = Integer
-type Disponibilidad = Bool
+iesimoElementoFila :: Integer-> [Integer] -> Integer -> Integer
+iesimoElementoFila i (x:xs) j   | i == j = x
+                                | otherwise = iesimoElementoFila i xs (j+1)
 
-type Ubicacion = Texto
-type Estado = (Disponibilidad, Ubicacion)
-type Locker = (Identificacion, Estado)
-type MapaDeLockers = [Locker]
+seleccionarColumna :: Integer-> [[Integer]]-> [Integer]
+seleccionarColumna i [] = []
+seleccionarColumna i (x:xs) = [iesimoElementoFila i x 0] ++ seleccionarColumna i xs
 
-existeElLocker :: Identificacion -> MapaDeLockers -> Bool
-existeElLocker _ [] = False
-existeElLocker id ((idL,e):ls)      | id == idL = True
-                                    | otherwise = existeElLocker id ls
+contarParesLista :: [Integer] -> Integer
+contarParesLista [] = 0
+contarParesLista (x:xs)     | mod x 2 == 0 = 1 + contarParesLista xs
+                            | otherwise = contarParesLista xs
 
-ubicacionDelLocker :: Identificacion -> MapaDeLockers -> Ubicacion
-ubicacionDelLocker _ [] = "No existe el locker"
-ubicacionDelLocker id ((idL,(disp,ubi)):ls)     | id == idL = ubi
-                                                | otherwise = ubicacionDelLocker id ls
+cantidadParesColumna :: Integer-> [[Integer]]-> Integer
+cantidadParesColumna i [] = 0
+cantidadParesColumna i x = contarParesLista (seleccionarColumna i x)
 
-estaDisponibleElLocker :: Identificacion->MapaDeLockers->Bool
-estaDisponibleElLocker _ [] = False
-estaDisponibleElLocker id ((idL,(disp,ubi)):ls) | id == idL = disp
-                                                | otherwise = estaDisponibleElLocker id ls
-
-ocuparLocker :: Identificacion->MapaDeLockers->MapaDeLockers
-ocuparLocker _ [] = []
-ocuparLocker id ((idL,(disp,ubi)):ls)     | id == idL && estaDisponibleElLocker id ((idL,(disp,ubi)):ls) = [(idL,(False,ubi))] ++ ocuparLocker id ls
-                                        | otherwise = [(idL,(disp,ubi))] ++ ocuparLocker id ls
 -- main -
 main :: IO()
 main = do
-    --print(existeElLocker 1 [(1,(True,"1er Piso")),(2,(False,"1er Piso")),(3,(True,"2do Piso"))])
-    --print(existeElLocker 2 [(1,(True,"1er Piso")),(2,(False,"1er Piso")),(3,(True,"2do Piso"))])
-    --print(existeElLocker 3 [(1,(True,"1er Piso")),(2,(False,"1er Piso")),(3,(True,"2do Piso"))])
-    --print(ubicacionDelLocker 1 [(1,(True,"1er Piso")),(2,(False,"1er Piso")),(3,(True,"2do Piso"))])
-    --print(ubicacionDelLocker 3 [(1,(True,"1er Piso")),(2,(False,"1er Piso")),(3,(True,"2do Piso"))])
-    --print(ubicacionDelLocker 4 [(1,(True,"1er Piso")),(2,(False,"1er Piso")),(3,(True,"2do Piso"))])
-    --print(estaDisponibleElLocker 1 [(1,(True,"1er Piso")),(2,(False,"1er Piso")),(3,(True,"2do Piso"))])
-    --print(estaDisponibleElLocker 2 [(1,(True,"1er Piso")),(2,(False,"1er Piso")),(3,(True,"2do Piso"))])
-    print(ocuparLocker 1 [(1,(True,"1er Piso")),(2,(False,"1er Piso")),(3,(True,"2do Piso"))])
-    print(ocuparLocker 2 [(1,(True,"1er Piso")),(2,(False,"1er Piso")),(3,(True,"2do Piso"))])
-    print(ocuparLocker 3 [(1,(True,"1er Piso")),(2,(False,"1er Piso")),(3,(True,"2do Piso"))])
-    print(ocuparLocker 4 [(1,(True,"1er Piso")),(2,(False,"1er Piso")),(3,(True,"2do Piso"))])
+    print(iesimoElementoFila 0 [1,2,3] 0)
+    print(iesimoElementoFila 1 [1,2,3] 0)
+    print(iesimoElementoFila 2 [1,2,3] 0)
+    print(cantidadParesColumna 0 [[1,2,3],[1,2,3],[1,2,3]])
+    print(cantidadParesColumna 1 [[1,2,3],[1,2,3],[1,2,3]])
+    print(cantidadParesColumna 2 [[1,2,3],[1,2,3],[1,2,3]])
     
