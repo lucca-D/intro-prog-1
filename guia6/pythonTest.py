@@ -1,32 +1,23 @@
 import math
-# Ejercicio 1. Definir las siguientes funciones y procedimientos:
-# 1. raizDe2(): que devuelva la ra ız cuadrada de 2 con 4 decimales. Ver funci ́on round
+# Ejercicio 3. Resuelva los siguientes ejercicios utilizando los operadores l ́ogicos and, or, not. Resolverlos sin utilizar
+#alternativa condicional (if).
 
-def raizDe2(x: int) -> int :
-    return round(math.sqrt(x),2)
+#1. alguno es 0(numero1, numero2): dados dos n ́umeros racionales, decide si alguno de los dos es igual a 0.
 
-# 2. problema imprimir hola () {
-#requiere: { True }
-#asegura: { imprime ’hola’por consola}
-#}
+def peso_pino(altura:int) -> int:   # recibe altura del pino en metros
+    if(altura > 2):
+        peso = 600 + (altura-2)*200
+    else:
+        peso = altura*300
+    return peso
 
-def imprimirHola():
-    print("Hola")
-imprimirHola()
+def es_peso_util(peso:int) -> bool:
+    return peso>400 and peso<1000
 
-# 3. imprimir un verso(): que imprima un verso de una canci ́on que vos elijas, respetando los saltos de l ́ınea.
-def imprimir_un_verso():
-    print("tengo que aprender a volar")
-    print("entre tanta gente de pie")
-imprimir_un_verso()
+def sirve_pino(altura:int):
+    return es_peso_util(peso_pino(altura))
 
-# 4. factorial de dos()
-#problema factorial 2 () : Z {
-#requiere: { True }
-#asegura: {res = 2!}
-#}
-
-def factorial_de_dos():
-    print(2)
-
-# el resto son FACILITOS
+print(sirve_pino(1))
+print(sirve_pino(2))
+print(sirve_pino(3))
+print(sirve_pino(4))
